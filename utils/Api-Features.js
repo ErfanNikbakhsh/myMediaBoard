@@ -13,7 +13,14 @@ const isObjectIdValid = (id) => {
   }
 };
 
+const createRawUrl = function (type, id, name) {
+  const final = `${type}/${id}/${name}`;
+  console.log(final);
+  return final;
+};
+
 module.exports = {
   logMiddleware,
   isObjectIdValid,
+  createRawUrl,
 };
