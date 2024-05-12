@@ -100,7 +100,7 @@ const deleteMediaDB = asynchandler(async (req, res, next) => {
   try {
     const media = req.media;
 
-    const deletedMedia = await Media.findByIdAndDelete(media._id).exec();
+    const deletedMedia = await Media.findByIdAndDelete(media._id, { new: true }).exec();
 
     if (deletedMedia) {
       logMiddleware('deleteMediaDB');
