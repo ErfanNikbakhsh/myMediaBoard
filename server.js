@@ -10,6 +10,7 @@ const dbConnect = require('./config/dbConnect');
 const { swaggerDocs, options } = require('./config/swaggerConfig');
 const authRoutes = require('./routes/authRoutes');
 const mediaRoutes = require('./routes/mediaRoutes');
+const displayRoutes = require('./routes/displayRoutes');
 
 const PORT = process.env.PORT || 4000;
 dbConnect();
@@ -21,6 +22,7 @@ app.use(morgan('dev'));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api/display', displayRoutes);
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, options));
 
