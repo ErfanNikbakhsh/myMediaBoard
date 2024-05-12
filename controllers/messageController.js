@@ -33,6 +33,21 @@ const sendMessage = asyncHandler(async (req, res, next) => {
         return res.status(200).send({
           message: i18next.t('media.delete', { lng: req.query.lang }),
         });
+      case 'display created':
+        return res.status(201).send({
+          id: req.displayData?._id,
+          message: i18next.t('display.create', { lng: req.query.lang }),
+        });
+      case 'display edited':
+        return res.status(200).send({
+          id: req.display?._id,
+          message: i18next.t('display.edit', { lng: req.query.lang }),
+        });
+      case 'display deleted':
+        return res.status(200).send({
+          id: req.display?._id,
+          message: i18next.t('display.delete', { lng: req.query.lang }),
+        });
 
       default:
         return res.send(req.message);
