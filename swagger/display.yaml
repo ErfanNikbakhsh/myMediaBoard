@@ -1,0 +1,202 @@
+{
+  'paths':
+    {
+      '/api/display/{id}':
+        {
+          'get':
+            {
+              'tags': ['display'],
+              'parameters':
+                [
+                  { 'name': 'id', 'in': 'path', 'required': true, 'schema': { 'type': 'string' } },
+                  { 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false },
+                ],
+              'description': 'Users can get the info of a display by using this endpoint.',
+              'responses':
+                {
+                  '200':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'id': { 'type': 'string' },
+                                      'title': { 'type': 'string' },
+                                      'content':
+                                        {
+                                          'type': 'array',
+                                          'items':
+                                            {
+                                              'type': 'object',
+                                              'properties':
+                                                {
+                                                  'name': { 'type': 'string' },
+                                                  'url': { 'type': 'string' },
+                                                },
+                                            },
+                                        },
+                                      'description': { 'type': 'string' },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
+      '/api/display/new':
+        {
+          'post':
+            {
+              'tags': ['display'],
+              'parameters':
+                [{ 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false }],
+              'description': 'Users can create a new display.',
+              'requestBody':
+                {
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {
+                              'type': 'object',
+                              'properties':
+                                {
+                                  'title': { 'type': 'string' },
+                                  'userId': { 'type': 'string' },
+                                  'content':
+                                    { 'type': 'array', 'items': { 'id': { 'type': 'string' } } },
+                                  'description': { 'type': 'string' },
+                                },
+                            },
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '201':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'id': { 'type': 'objectId', 'example': 'objectId' },
+                                      'message': { 'type': 'string', 'example': 'string' },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
+      '/api/display/edit/{id}':
+        {
+          'patch':
+            {
+              'tags': ['display'],
+              'parameters':
+                [
+                  {
+                    'name': 'display',
+                    'in': 'path',
+                    'required': true,
+                    'schema': { 'type': 'string' },
+                  },
+                  { 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false },
+                ],
+              'description': 'Users can edit their displays.',
+              'requestBody':
+                {
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {
+                              'type': 'object',
+                              'properties':
+                                {
+                                  'title': { 'type': 'string' },
+                                  'userId': { 'type': 'string' },
+                                  'content':
+                                    { 'type': 'array', 'items': { 'id': { 'type': 'string' } } },
+                                  'description': { 'type': 'string' },
+                                },
+                            },
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'id': { 'type': 'string', 'example': 'string' },
+                                      'message': { 'type': 'string', 'example': 'string' },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
+      '/api/display/delete/{id}':
+        {
+          'patch':
+            {
+              'tags': ['display'],
+              'parameters':
+                [
+                  { 'name': 'id', 'in': 'path', 'required': true, 'schema': { 'type': 'string' } },
+                  { 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false },
+                ],
+              'description': 'Users can delete their displays.',
+              'responses':
+                {
+                  '200':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'id': { 'type': 'objectId', 'example': 'objectId' },
+                                      'message': { 'type': 'string', 'example': 'string' },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+}
