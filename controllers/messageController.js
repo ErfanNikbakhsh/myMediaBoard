@@ -6,19 +6,19 @@ const sendMessage = asyncHandler(async (req, res, next) => {
     switch (req.message) {
       case 'user created':
         return res.status(201).send({
-          id: userData?._id,
-          firstName: userData?.firstName,
-          lastName: userData?.lastName,
-          email: userData?.email,
-          token: generateToken(userData?._id),
+          id: req.userData?._id,
+          firstName: req.userData?.firstName,
+          lastName: req.userData?.lastName,
+          email: req.userData?.email,
+          token: generateToken(req.userData?._id),
         });
       case 'user entered via pass':
         return res.status(200).send({
-          id: userData?._id,
-          firstName: userData?.firstName,
-          lastName: userData?.lastName,
-          email: userData?.email,
-          token: generateToken(userData?._id),
+          id: req.userData?._id,
+          firstName: req.userData?.firstName,
+          lastName: req.userData?.lastName,
+          email: req.userData?.email,
+          token: generateToken(req.userData?._id),
         });
 
       default:
