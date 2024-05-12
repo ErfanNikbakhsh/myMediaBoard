@@ -29,6 +29,10 @@ const sendMessage = asyncHandler(async (req, res, next) => {
           name: req.fileData.name,
           type: req.fileData.type,
         });
+      case 'media deleted':
+        return res.status(200).send({
+          message: i18next.t('media.delete', { lng: req.query.lang }),
+        });
 
       default:
         return res.send(req.message);
