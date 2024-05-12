@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
-    userName: {
+    firstName: {
       type: String,
-      unique: true,
+      required: true,
+    },
+    lastName: {
+      type: String,
       required: true,
     },
     password: {
@@ -14,6 +17,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       unique: true,
+      required: true,
     },
     language: {
       type: String,
@@ -32,6 +36,18 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre('save', async function () {
+  const user = this;
+  if (user.isNew || user.isModified('password')) {
+    const saltRounds = +process.env.BCRYPT_SALT;
+    user.password = await bcrypt.hash(user.password, saltRounds);
+  }
+});
+
+userSchema.methods.isPasswordMatched = async function (enteredPass) {
+  return await bcrypt.compare(enteredPass, this.password);
+};
 
 const User = mongoose.model('User', userSchema);
 
