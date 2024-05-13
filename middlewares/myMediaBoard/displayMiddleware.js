@@ -44,7 +44,9 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
     return next();
   } catch (error) {
     if (error.message === 'Id Is Not Valid') {
-      return res.status(412).send(i18next.t('id.invalidData', { lng: lang, label: 'content' }));
+      return res
+        .status(412)
+        .send(i18next.t('id.invalidData', { lng: lang, label: 'content or user' }));
     } else {
       return res.status(500).send(i18next.t('genericError', { lng: lang }));
     }
