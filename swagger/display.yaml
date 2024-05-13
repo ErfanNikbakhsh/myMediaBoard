@@ -110,12 +110,7 @@
               'tags': ['display'],
               'parameters':
                 [
-                  {
-                    'name': 'display',
-                    'in': 'path',
-                    'required': true,
-                    'schema': { 'type': 'string' },
-                  },
+                  { 'name': 'id', 'in': 'path', 'required': true, 'schema': { 'type': 'string' } },
                   { 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false },
                 ],
               'description': 'Users can edit their displays.',
