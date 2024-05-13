@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const { generateToken } = require('../config/jwtToken');
 const i18next = require('../dictionary/i18n');
+const { generateURL } = require('../utils/Api-Features');
 
 const sendMessage = asyncHandler(async (req, res, next) => {
   try {
@@ -25,7 +26,7 @@ const sendMessage = asyncHandler(async (req, res, next) => {
         return res.status(200).send({
           message: i18next.t('upload.success', { lng: req.query.lang }),
           id: req.fileId,
-          url: req.fileData?.url ?? '',
+          url: req.fileData ? (req.fileData.url ? generateURL(req.fileData.url) : '') : '',
           name: req.fileData?.name ?? '',
           type: req.fileData?.type ?? '',
         });
