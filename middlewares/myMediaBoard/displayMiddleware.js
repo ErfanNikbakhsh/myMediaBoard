@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { logMiddleware, isObjectIdValid } = require('../../utils/Api-Features');
+const { logMiddleware, isObjectIdValid, generateURL } = require('../../utils/Api-Features');
 const User = require('../../models/userModel');
 const Media = require('../../models/mediaModel');
 const Display = require('../../models/displayModel');
@@ -129,7 +129,13 @@ const formatDisplayForUser = asynchandler(async (req, res, next) => {
     req.display = {
       id: display?._id ?? '',
       title: display?.title ?? '',
-      content: display?.content ?? [],
+      content:
+        display?.content.map((media) => {
+          return {
+            name: media?.name,
+            url: media ? (media.url ? generateURL(media.url) : '') : '',
+          };
+        }) ?? [],
       description: display?.description ?? '',
     };
 
