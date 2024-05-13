@@ -12,7 +12,7 @@ const uploadFileRequirements = asynchandler(async (req, res, next) => {
 
   try {
     req.uploadSection = 'users';
-    req.uploadId = req.user._id.toString();
+    req.uploadId = req.user?._id.toString();
     isObjectIdValid(req.params.id);
 
     logMiddleware('uploadFileRequirements');
@@ -52,11 +52,11 @@ const formatMediaForUser = asynchandler(async (req, res, next) => {
 
     req.media = media.map((mediaData) => {
       return {
-        id: mediaData._id ?? '',
-        name: mediaData.name ?? '',
-        type: mediaData.type ?? '',
-        url: mediaData.url ?? '',
-        userId: mediaData.userId ?? '',
+        id: mediaData?._id ?? '',
+        name: mediaData?.name ?? '',
+        type: mediaData?.type ?? '',
+        url: mediaData?.url ?? '',
+        userId: mediaData?.userId ?? '',
       };
     });
 
@@ -70,7 +70,7 @@ const formatMediaForUser = asynchandler(async (req, res, next) => {
 
 const getMedia = asynchandler(async (req, res, next) => {
   const { lang } = req.query;
-  const userId = req.user._id;
+  const userId = req.user?._id;
 
   try {
     const id = req.params.id;
@@ -100,7 +100,7 @@ const deleteMediaDB = asynchandler(async (req, res, next) => {
   try {
     const media = req.media;
 
-    const deletedMedia = await Media.findByIdAndDelete(media._id, { new: true }).exec();
+    const deletedMedia = await Media.findByIdAndDelete(media?._id, { new: true }).exec();
 
     if (deletedMedia) {
       logMiddleware('deleteMediaDB');
@@ -117,9 +117,9 @@ const deleteMediaFile = asynchandler(async (req, res, next) => {
 
   try {
     const media = req.media;
-    const userId = req.user._id.toString();
+    const userId = req.user?._id.toString();
 
-    const filePath = path.join(process.cwd(), '/upload/private/users', userId, media.name);
+    const filePath = path.join(process.cwd(), '/upload/private/users', userId, media?.name);
 
     const fileExists = fs.existsSync(filePath);
 

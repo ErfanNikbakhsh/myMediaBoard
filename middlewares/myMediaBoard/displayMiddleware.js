@@ -22,9 +22,9 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
     const { error } = schema.validate(req.body);
 
     if (error) {
-      const translatedMessage = i18next.t(error.details[0].type, {
+      const translatedMessage = i18next.t(error.details?.[0]?.type, {
         lng: lang,
-        label: error.details[0].context.label,
+        label: error.details?.[0]?.context?.label,
       });
       return res.status(412).send(translatedMessage);
     }
@@ -51,9 +51,9 @@ const editDisplayRequirements = asynchandler(async (req, res, next) => {
     const { error } = schema.validate(req.body);
 
     if (error) {
-      const translatedMessage = i18next.t(error.details[0].type, {
+      const translatedMessage = i18next.t(error.details?.[0]?.type, {
         lng: lang,
-        label: error.details[0].context.label,
+        label: error.details?.[0]?.context?.label,
       });
       return res.status(412).send(translatedMessage);
     }
@@ -87,7 +87,7 @@ const getDisplayForUser = asynchandler(async (req, res, next) => {
   const { lang } = req.query;
 
   try {
-    const userId = req.user._id;
+    const userId = req.user?._id;
     const id = req.params.id;
 
     const display = await Display.findOne({ _id: id, userId: userId, softDelete: false })
@@ -114,10 +114,10 @@ const formatDisplayForUser = asynchandler(async (req, res, next) => {
     let display = req.display;
 
     req.display = {
-      id: display._id ?? '',
-      title: display.title ?? '',
-      content: display.content ?? [],
-      description: display.description ?? '',
+      id: display?._id ?? '',
+      title: display?.title ?? '',
+      content: display?.content ?? [],
+      description: display?.description ?? '',
     };
 
     logMiddleware('formatDisplayForUser');
@@ -132,7 +132,7 @@ const editDisplayForUser = asynchandler(async (req, res, next) => {
   const { lang } = req.query;
 
   try {
-    const userId = req.user._id;
+    const userId = req.user?._id;
     const id = req.params.id;
 
     const updatedDisplay = await Display.findOneAndUpdate(
@@ -159,7 +159,7 @@ const deleteDisplay = asynchandler(async (req, res, next) => {
   const { lang } = req.query;
 
   try {
-    const userId = req.user._id;
+    const userId = req.user?._id;
     const id = req.params.id;
 
     const deletedDisplay = await Display.findOneAndUpdate(

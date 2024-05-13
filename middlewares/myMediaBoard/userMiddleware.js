@@ -66,9 +66,9 @@ const newUserRequirements = asynchandler(async (req, res, next) => {
     const { error } = schema.validate(req.body);
 
     if (error) {
-      const translatedMessage = i18next.t(error.details[0].type, {
+      const translatedMessage = i18next.t(error.details?.[0]?.type, {
         lng: lang,
-        label: error.details[0].context.label,
+        label: error.details?.[0]?.context?.label,
       });
       return res.status(412).send(translatedMessage);
     }
@@ -93,9 +93,9 @@ const userLoginRequirements = asynchandler(async (req, res, next) => {
     const { error } = schema.validate(req.body);
 
     if (error) {
-      const translatedMessage = i18next.t(error.details[0].type, {
+      const translatedMessage = i18next.t(error.details?.[0]?.type, {
         lng: lang,
-        label: error.details[0].context.label,
+        label: error.details?.[0]?.context?.label,
       });
       return res.status(412).send(translatedMessage);
     }

@@ -7,27 +7,27 @@ const sendMessage = asyncHandler(async (req, res, next) => {
     switch (req.message) {
       case 'user created':
         return res.status(201).send({
-          id: req.userData?._id,
-          firstName: req.userData?.firstName,
-          lastName: req.userData?.lastName,
-          email: req.userData?.email,
+          id: req.userData?._id ?? '',
+          firstName: req.userData?.firstName ?? '',
+          lastName: req.userData?.lastName ?? '',
+          email: req.userData?.email ?? '',
           token: generateToken(req.userData?._id),
         });
       case 'user entered via pass':
         return res.status(200).send({
-          id: req.userData?._id,
-          firstName: req.userData?.firstName,
-          lastName: req.userData?.lastName,
-          email: req.userData?.email,
+          id: req.userData?._id ?? '',
+          firstName: req.userData?.firstName ?? '',
+          lastName: req.userData?.lastName ?? '',
+          email: req.userData?.email ?? '',
           token: generateToken(req.userData?._id),
         });
       case 'file Uploaded':
         return res.status(200).send({
           message: i18next.t('upload.success', { lng: req.query.lang }),
           id: req.fileId,
-          url: req.fileData.url,
-          name: req.fileData.name,
-          type: req.fileData.type,
+          url: req.fileData?.url ?? '',
+          name: req.fileData?.name ?? '',
+          type: req.fileData?.type ?? '',
         });
       case 'media deleted':
         return res.status(200).send({
