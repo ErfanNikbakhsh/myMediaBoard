@@ -10,6 +10,7 @@ const fs = require('fs');
 
 const newDisplayRequirements = asynchandler(async (req, res, next) => {
   const { lang } = req.query;
+  const { content } = req.body;
 
   try {
     const schema = Joi.object({
@@ -31,10 +32,22 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
 
     isObjectIdValid(req.body.userId);
 
+    if (content.length > 0) {
+      content.forEach((id) => {
+        isObjectIdValid(id);
+      });
+    } else {
+      return res.status(412).send(i18next.t('array.empty', { lng: lang, label: 'content' }));
+    }
+
     logMiddleware('newDisplayRequirements');
     return next();
   } catch (error) {
-    return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    if (error.message === 'Id Is Not Valid') {
+      return res.status(412).send(i18next.t('array.invalidData', { lng: lang, label: 'content' }));
+    } else {
+      return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    }
   }
 });
 
