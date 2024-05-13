@@ -10,7 +10,7 @@ const logMiddleware = (name) => {
 const isObjectIdValid = (id) => {
   if (typeof id !== 'object' && id) {
     const isValid = ObjectId.isValid(id) && String(new ObjectId(id)) === id;
-    if (!isValid) throw new Error('Id Is Not Valid');
+    if (!isValid) throw { message: 'Id Is Not Valid' };
   }
 };
 
