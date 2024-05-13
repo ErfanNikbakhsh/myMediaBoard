@@ -32,7 +32,7 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
 
     isObjectIdValid(req.body.userId);
 
-    if (content.length > 0) {
+    if (content?.length > 0) {
       content.forEach((id) => {
         isObjectIdValid(id);
       });
@@ -44,7 +44,7 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
     return next();
   } catch (error) {
     if (error.message === 'Id Is Not Valid') {
-      return res.status(412).send(i18next.t('array.invalidData', { lng: lang, label: 'content' }));
+      return res.status(412).send(i18next.t('id.invalidData', { lng: lang, label: 'content' }));
     } else {
       return res.status(500).send(i18next.t('genericError', { lng: lang }));
     }
@@ -53,6 +53,7 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
 
 const editDisplayRequirements = asynchandler(async (req, res, next) => {
   const { lang } = req.query;
+  const { content } = req.body;
 
   try {
     const schema = Joi.object({
@@ -70,11 +71,20 @@ const editDisplayRequirements = asynchandler(async (req, res, next) => {
       });
       return res.status(412).send(translatedMessage);
     }
+    if (content?.length > 0) {
+      content.forEach((id) => {
+        isObjectIdValid(id);
+      });
+    }
 
     logMiddleware('editDisplayRequirements');
     return next();
   } catch (error) {
-    return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    if (error.message === 'Id Is Not Valid') {
+      return res.status(412).send(i18next.t('id.invalidData', { lng: lang, label: 'content' }));
+    } else {
+      return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    }
   }
 });
 
@@ -102,6 +112,7 @@ const getDisplayForUser = asynchandler(async (req, res, next) => {
   try {
     const userId = req.user?._id;
     const id = req.params.id;
+    isObjectIdValid(id);
 
     const display = await Display.findOne({ _id: id, userId: userId, softDelete: false })
       .populate('content', 'name url -_id')
@@ -115,8 +126,11 @@ const getDisplayForUser = asynchandler(async (req, res, next) => {
     logMiddleware('getDisplayForUser');
     return next();
   } catch (error) {
-    console.log(error);
-    return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    if (error.message === 'Id Is Not Valid') {
+      return res.status(412).send(i18next.t('id.invalidData', { lng: lang, label: 'display' }));
+    } else {
+      return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    }
   }
 });
 
@@ -153,6 +167,7 @@ const editDisplayForUser = asynchandler(async (req, res, next) => {
   try {
     const userId = req.user?._id;
     const id = req.params.id;
+    isObjectIdValid(id);
 
     const updatedDisplay = await Display.findOneAndUpdate(
       { _id: id, userId: userId, softDelete: false },
@@ -169,8 +184,11 @@ const editDisplayForUser = asynchandler(async (req, res, next) => {
     logMiddleware('editDisplayForUser');
     return next();
   } catch (error) {
-    console.log(error);
-    return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    if (error.message === 'Id Is Not Valid') {
+      return res.status(412).send(i18next.t('id.invalidData', { lng: lang, label: 'display' }));
+    } else {
+      return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    }
   }
 });
 
@@ -180,6 +198,7 @@ const deleteDisplay = asynchandler(async (req, res, next) => {
   try {
     const userId = req.user?._id;
     const id = req.params.id;
+    isObjectIdValid(id);
 
     const deletedDisplay = await Display.findOneAndUpdate(
       { _id: id, userId: userId, softDelete: false },
@@ -196,8 +215,11 @@ const deleteDisplay = asynchandler(async (req, res, next) => {
     logMiddleware('deleteDisplay');
     return next();
   } catch (error) {
-    console.log(error);
-    return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    if (error.message === 'Id Is Not Valid') {
+      return res.status(412).send(i18next.t('id.invalidData', { lng: lang, label: 'display' }));
+    } else {
+      return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    }
   }
 });
 
