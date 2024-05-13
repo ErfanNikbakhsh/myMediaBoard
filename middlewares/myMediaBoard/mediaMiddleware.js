@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { logMiddleware, isObjectIdValid } = require('../../utils/Api-Features');
+const { logMiddleware, isObjectIdValid, generateURL } = require('../../utils/Api-Features');
 const User = require('../../models/userModel');
 const Media = require('../../models/mediaModel');
 const asynchandler = require('express-async-handler');
@@ -13,7 +13,6 @@ const uploadFileRequirements = asynchandler(async (req, res, next) => {
   try {
     req.uploadSection = 'users';
     req.uploadId = req.user?._id.toString();
-    isObjectIdValid(req.params.id);
 
     logMiddleware('uploadFileRequirements');
     return next();
@@ -55,7 +54,7 @@ const formatMediaForUser = asynchandler(async (req, res, next) => {
         id: mediaData?._id ?? '',
         name: mediaData?.name ?? '',
         type: mediaData?.type ?? '',
-        url: mediaData?.url ?? '',
+        url: mediaData ? (mediaData.url ? generateURL(mediaData.url) : '') : '',
         userId: mediaData?.userId ?? '',
       };
     });
