@@ -87,7 +87,7 @@ const userLoginRequirements = asynchandler(async (req, res, next) => {
   try {
     const schema = Joi.object({
       email: Joi.string().email().trim().required(),
-      password: Joi.string().min(6).trim().required(),
+      password: Joi.string().trim().required(),
     });
 
     const { error } = schema.validate(req.body);
