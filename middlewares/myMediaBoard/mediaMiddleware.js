@@ -88,8 +88,11 @@ const getMedia = asynchandler(async (req, res, next) => {
     logMiddleware('getMedia');
     return next();
   } catch (error) {
-    console.log(error);
-    return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    if (error.message === 'Id Is Not Valid') {
+      return res.status(412).send(i18next.t('id.invalidData', { lng: lang, label: 'media' }));
+    } else {
+      return res.status(500).send(i18next.t('genericError', { lng: lang }));
+    }
   }
 });
 
