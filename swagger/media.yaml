@@ -1,0 +1,127 @@
+{
+  'paths':
+    {
+      '/api/media':
+        {
+          'get':
+            {
+              'tags': ['media'],
+              'parameters':
+                [{ 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false }],
+              'description': 'Users can get the info of their media by using this endpoint.',
+              'responses':
+                {
+                  '200':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'array',
+                                  'items':
+                                    {
+                                      'type': 'object',
+                                      'properties':
+                                        {
+                                          'id': { 'type': 'string', 'example': 'objectId' },
+                                          'name': { 'type': 'string', 'example': 'string' },
+                                          'type': { 'type': 'string', 'example': 'image/png' },
+                                          'url': { 'type': 'string', 'example': 'string' },
+                                          'userId': { 'type': 'string', 'example': 'objectId' },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
+      '/api/media/upload':
+        {
+          'post':
+            {
+              'tags': ['media'],
+              'parameters':
+                [{ 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false }],
+              'description': 'Users can upload their files.',
+              'requestBody':
+                {
+                  'content':
+                    {
+                      'multipart/form-data':
+                        {
+                          'schema':
+                            {
+                              'type': 'object',
+                              'properties': { 'file': { 'type': 'string', 'format': 'binary' } },
+                            },
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'message': { 'type': 'string', 'example': 'string' },
+                                      'id': { 'type': 'objectId', 'example': 'objectId' },
+                                      'url': { 'type': 'string', 'example': 'string' },
+                                      'name': { 'type': 'string', 'example': 'string' },
+                                      'type': { 'type': 'string', 'example': 'image/png' },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
+      '/api/media/{id}':
+        {
+          'delete':
+            {
+              'tags': ['media'],
+              'parameters':
+                [
+                  { 'name': 'id', 'in': 'path', 'required': true, 'schema': { 'type': 'string' } },
+                  { 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false },
+                ],
+              'description': 'Users can delete their media.',
+              'responses':
+                {
+                  '200':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'id': { 'type': 'string', 'example': 'string' },
+                                      'message': { 'type': 'string', 'example': 'string' },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+}

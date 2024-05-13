@@ -7,9 +7,10 @@ const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 
 const dbConnect = require('./config/dbConnect');
-const authRoutes = require('./routes/authRoutes');
-const { errorHandler, notFound } = require('./middlewares/errorHandler');
 const { swaggerDocs, options } = require('./config/swaggerConfig');
+const authRoutes = require('./routes/authRoutes');
+const mediaRoutes = require('./routes/mediaRoutes');
+const displayRoutes = require('./routes/displayRoutes');
 
 const PORT = process.env.PORT || 4000;
 dbConnect();
@@ -19,7 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 
-app.use('/api/user', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/media', mediaRoutes);
+app.use('/api/display', displayRoutes);
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, options));
 

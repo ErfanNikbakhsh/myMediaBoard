@@ -1,0 +1,121 @@
+{
+  'paths':
+    {
+      '/api/auth/register':
+        {
+          'post':
+            {
+              'tags': ['auth'],
+              'parameters':
+                [{ 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false }],
+              'description': 'Users can register with this endpoint.',
+              'requestBody':
+                {
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {
+                              'type': 'object',
+                              'properties':
+                                {
+                                  'firstName': { 'type': 'string', 'example': 'John' },
+                                  'lastName': { 'type': 'string', 'example': 'Doe' },
+                                  'email': { 'type': 'string', 'example': 'test@gmail.com' },
+                                  'password': { 'type': 'string', 'example': '123456' },
+                                },
+                            },
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '201':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'id': { 'type': 'string', 'example': 'objectId' },
+                                      'firstName': { 'type': 'string', 'example': 'John' },
+                                      'lastName': { 'type': 'string', 'example': 'Doe' },
+                                      'email': { 'type': 'string', 'example': 'test@gmail.com' },
+                                      'access':
+                                        {
+                                          'type': 'string',
+                                          'example': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXCVI9',
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
+      '/api/auth/login':
+        {
+          'post':
+            {
+              'tags': ['auth'],
+              'parameters':
+                [{ 'name': 'lang', 'in': 'query', 'type': 'string', 'required': false }],
+              'description': 'Login endpoint for users.',
+              'requestBody':
+                {
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {
+                              'type',
+                              'properties':
+                                {
+                                  'email': { 'type': 'string', 'example': 'test@gmail.com' },
+                                  'password': { 'type': 'string', 'example': '123456' },
+                                },
+                            },
+                        },
+                    },
+                },
+
+              'responses':
+                {
+                  '200':
+                    {
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {
+                                  'type': 'object',
+                                  'properties':
+                                    {
+                                      'id': { 'type': 'string', 'example': 'objectId' },
+                                      'firstName': { 'type': 'string', 'example': 'John' },
+                                      'lastName': { 'type': 'string', 'example': 'Doe' },
+                                      'email': { 'type': 'string', 'example': 'test@gmail.com' },
+                                      'access':
+                                        {
+                                          'type': 'string',
+                                          'example': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXCVI9',
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+}
