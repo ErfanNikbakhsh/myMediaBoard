@@ -70,7 +70,6 @@
                               'properties':
                                 {
                                   'title': { 'type': 'string' },
-                                  'userId': { 'type': 'string' },
                                   'content':
                                     { 'type': 'array', 'items': { 'id': { 'type': 'string' } } },
                                   'description': { 'type': 'string' },

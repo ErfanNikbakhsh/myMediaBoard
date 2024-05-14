@@ -16,7 +16,6 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
     const schema = Joi.object({
       title: Joi.string().required(),
       content: Joi.array().required(),
-      userId: Joi.required(),
       description: Joi.string().optional().allow(''),
     });
 
@@ -29,8 +28,6 @@ const newDisplayRequirements = asynchandler(async (req, res, next) => {
       });
       return res.status(412).send(translatedMessage);
     }
-
-    isObjectIdValid(req.body.userId);
 
     if (content?.length > 0) {
       content.forEach((id) => {
@@ -92,9 +89,10 @@ const editDisplayRequirements = asynchandler(async (req, res, next) => {
 
 const createNewDisplay = asynchandler(async (req, res, next) => {
   const { lang } = req.query;
+  const userId = req.user._id;
 
   try {
-    const newDisplay = await Display.create(req.body);
+    const newDisplay = await Display.create({ ...req.body, userId });
 
     if (newDisplay) {
       req.displayData = newDisplay;
