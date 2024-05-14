@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "3fe21f75-7847-41e3-aa07-d453fe172f98",
+		"name": "DB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27276538"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"Token\",  pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"Maria.doe@example.com\",\n  \"password\": \"1236546\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Db}}/api/auth/login?lang=",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"Token\",  pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Hello\",\n  \"lastName\": \"Doe\",\n  \"email\": \"Erfan1.doe@example.com\",\n  \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Db}}/api/auth/register?lang=en",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "en"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "Get Media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Db}}/api/media/?lang=en",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"media",
+								""
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "en"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Media",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": "/home/ubuntu/Downloads/others/New Folder/forTesting.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Db}}/api/media/upload?lang=en",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"media",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "en"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Media",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Db}}/api/media/:id?lang=en",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"media",
+								":id"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "en"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6641af69110b5101922cbe12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Display",
+			"item": [
+				{
+					"name": "Get Display For A User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Db}}/api/display/:id?lang=",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"display",
+								":id"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": ""
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6641c90cde4ed2c10772865e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Display",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"test123\",\n    \"content\": [\"6641c8dfde4ed2c107728656\"],\n    \"description\": \"this is a test 12:55\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Db}}/api/display/new?lang=",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"display",
+								"new"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Display For A User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"another message\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Db}}/api/display/edit/:id?lang=",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"display",
+								"edit",
+								":id"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": ""
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6641091ec2cb442cdacd1c2f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Display for A User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{Db}}/api/display/delete/:id?lang=en",
+							"host": [
+								"{{Db}}"
+							],
+							"path": [
+								"api",
+								"display",
+								"delete",
+								":id"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "en"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6641091ec2cb442cdacd1c2f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
